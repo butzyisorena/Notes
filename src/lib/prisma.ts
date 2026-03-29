@@ -11,7 +11,9 @@ function createPrismaClient() {
   let adapter;
   
   if (provider === "postgresql") {
-    adapter = new PrismaPg(process.env.DATABASE_URL);
+    const url = process.env.DATABASE_URL;
+    if (!url) throw new Error("DATABASE_URL is required for PostgreSQL");
+    adapter = new PrismaPg(url);
   } else {
     adapter = new PrismaLibSql({
       url: process.env.DATABASE_URL || "file:./dev.db",
