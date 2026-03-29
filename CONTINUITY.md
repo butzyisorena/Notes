@@ -51,7 +51,10 @@ NEXTAUTH_SECRET="development-secret-change-in-production-1234567890"
 ## Next Steps (Pending)
 - [x] Connect GitHub repository for source control ✅ COMPLETED
 - [x] Set up PostgreSQL for production (Supabase) ✅ CONFIGURED
-- [ ] Deploy to Vercel
+- [x] Deploy to Vercel ✅ DEPLOYED
+- [ ] Run database migrations on Supabase
+- [ ] Update NEXTAUTH_URL environment variable
+- [ ] Assign production domain
 - [ ] Add email verification for new accounts
 - [ ] Implement password reset functionality
 - [ ] Add user profile management
@@ -75,11 +78,16 @@ NEXTAUTH_SECRET="development-secret-change-in-production-1234567890"
 **Note**: IPv6 connectivity issue with Tokyo region - local development uses SQLite
 
 ## Vercel Deployment
-**Status**: Configuration ready  
-**To deploy**:
-1. Connect GitHub repository to Vercel
-2. Set environment variables in Vercel dashboard
-3. Deploy automatically on push to main branch
+**Status**: ✅ DEPLOYED  
+**URL**: https://mg-kojelauta-8b6o1wfrl-butzy0013-5201s-projects.vercel.app  
+**Preview URL**: https://mg-kojelauta-git-e8e9fba90d6801-db600a-butzy0013-5201s-projects.vercel.app  
+**Deployment ID**: dpl_9tdxSdAbV67vKNZiMejpvpwxcdMw  
+**Environment**: Preview (needs production domain assignment)  
+**Next steps**:  
+1. Assign production domain (mg-kojelauta.vercel.app)  
+2. Update NEXTAUTH_URL environment variable  
+3. Run database migrations on Supabase  
+4. Create admin user
 
 ## Important Notes
 1. **Security**: NEXTAUTH_SECRET should be changed in production
