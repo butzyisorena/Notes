@@ -1,14 +1,25 @@
 import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
 function createPrismaClient() {
-  const adapter = new PrismaLibSql({
-    url: process.env.DATABASE_URL || "file:./dev.db",
-  });
+  const provider = process.env.DATABASE_PROVIDER || "sqlite";
+  let adapter;
+  
+  if (provider === "postgresql") {
+    adapter = new PrismaPg({
+      url: process.env.DATABASE_URL,
+    });
+  } else {
+    adapter = new PrismaLibSql({
+      url: process.env.DATABASE_URL || "file:./dev.db",
+    });
+  }
+  
   return new PrismaClient({
     adapter,
   });
