@@ -94,7 +94,8 @@ NEXTAUTH_SECRET="development-secret-change-in-production-1234567890"
 2. **Database**: Supabase PostgreSQL (Tokyo) for production, SQLite for development
 3. **Password**: Current validation requires 12+ characters with complexity
 4. **Session**: JWT-based sessions with 30-day expiration (default)
-5. **Deployment**: Need to connect GitHub to Vercel and set environment variables
+5. **Deployment**: ✅ DEPLOYED to Vercel - https://mg-kojelauta-8b6o1wfrl-butzy0013-5201s-projects.vercel.app
+6. **Pending**: Database migrations, NEXTAUTH_URL update, production domain assignment
 
 ## To Resume Work
 Use this prompt to continue development:
