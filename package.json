@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma prepare && prisma generate && next build && prisma migrate deploy",
+    "build": "node -e \"const fs=require('fs'); const provider=process.env.DATABASE_PROVIDER||'sqlite'; const schema=provider==='postgresql'?'schema.postgres.prisma':'schema.sqlite.prisma'; fs.copyFileSync('prisma/'+schema,'prisma/schema.prisma');\" && prisma generate && next build && prisma migrate deploy",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate",
-    "migrate": "prisma migrate deploy",
-    "prisma:prepare": "node -e \"const fs=require('fs'); const provider=process.env.DATABASE_PROVIDER||'sqlite'; const schema=provider==='postgresql'?'schema.postgres.prisma':'schema.sqlite.prisma'; fs.copyFileSync('prisma/'+schema,'prisma/schema.prisma');\""
+    "migrate": "prisma migrate deploy"
   },
   "dependencies": {
     "@libsql/client": "^0.17.2",
