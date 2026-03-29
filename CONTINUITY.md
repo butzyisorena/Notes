@@ -1,111 +1,59 @@
-# Project Continuity Prompt
+# Project Continuity - Secure Web App
 
-## Project Overview
-**Project Name**: Secure Web App  
-**Location**: `/home/butzy/secure-web-app`  
-**Tech Stack**: Next.js 16 + TypeScript + Tailwind CSS + Prisma + NextAuth.js  
-**Last Updated**: 2026-03-29
+## Quick Context
+- **Project**: Next.js 16 secure web app with authentication
+- **Location**: `/home/butzy/secure-web-app`
+- **Last Session**: 2026-03-30
+- **Current Issue**: Database connectivity failure on Vercel deployment
 
-## Current State
-✅ **Completed Tasks:**
-1. Next.js project structure with TypeScript and Tailwind CSS
-2. Authentication system with NextAuth.js (email/password)
-3. Prisma database with SQLite for development
-4. Secure password hashing with bcrypt (12 rounds)
-5. Login page with error handling
-6. Registration page with password validation (12+ chars, uppercase, lowercase, numbers, special chars)
-7. Dashboard page with user session management
-8. Vercel deployment configuration
-9. Git repository initialized
+## What Works Locally
+- ✅ Next.js app runs with SQLite (`npm run dev`)
+- ✅ Authentication (login/register/dashboard)
+- ✅ GitHub integration (repo: `butzyisorena/Notes`)
+- ✅ Code structure and Prisma setup
 
-## Key Files
-- **Authentication**: `src/lib/auth.ts` - NextAuth configuration with credentials provider
-- **Database**: `src/lib/prisma.ts` - Prisma client with SQLite adapter
-- **Password Utils**: `src/lib/password.ts` - Password validation and hashing
-- **Login Page**: `src/app/login/page.tsx`
-- **Registration Page**: `src/app/register/page.tsx`
-- **Dashboard**: `src/app/dashboard/page.tsx`
-- **API Routes**: 
-  - `src/app/api/auth/[...nextauth]/route.ts` - NextAuth API
-  - `src/app/api/auth/register/route.ts` - Registration endpoint
+## What's Broken on Vercel
+- ❌ **Database unreachable**: Supabase PostgreSQL in Tokyo region (IPv6 only)
+- ❌ **Error**: `db_unreachable` during build
+- ❌ **Root cause**: Vercel build environment can't connect to IPv6-only database
 
-## Database
-- **Type**: SQLite (file:./dev.db)
-- **Models**: User, Account, Session, VerificationToken
-- **Migrations**: `prisma/migrations/`
+## Immediate Task
+**Fix database connectivity for Vercel deployment:**
 
-## Environment Variables
+1. **Create new Supabase project** in US East or EU West region (IPv4 supported)
+2. **Update environment variables** in Vercel with new connection string
+3. **Run migrations** to create tables in new database
+4. **Redeploy** and test
+
+## Key Files Modified Recently
+- `src/lib/prisma.ts` - Conditional PostgreSQL/SQLite adapter
+- `package.json` - Build script with migrations
+- `prisma/schema.prisma` - PostgreSQL schema for production
+
+## Environment Variables Needed
 ```
-DATABASE_URL="file:./dev.db"
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="development-secret-change-in-production-1234567890"
+DATABASE_URL=postgresql://postgres:[password]@db.host.supabase.co:5432/postgres
+DATABASE_PROVIDER=postgresql
+NEXTAUTH_URL=https://your-deployment.vercel.app
+NEXTAUTH_SECRET=secure-random-string
 ```
 
-## Commands
-- **Development**: `npm run dev`
-- **Build**: `npm run build`
-- **Start**: `npm run start`
-- **Prisma Studio**: `npx prisma studio`
-- **Database Push**: `npx prisma db push`
+## Commands to Remember
+- Test locally: `npm run dev`
+- Check deployment: Vercel dashboard
+- Push changes: `git push` (auto-deploys to Vercel)
 
-## Next Steps (Pending)
-- [x] Connect GitHub repository for source control ✅ COMPLETED
-- [x] Set up PostgreSQL for production (Supabase) ✅ CONFIGURED
-- [x] Deploy to Vercel ✅ DEPLOYED
-- [ ] Run database migrations on Supabase
-- [ ] Update NEXTAUTH_URL environment variable
-- [ ] Assign production domain
-- [ ] Add email verification for new accounts
-- [ ] Implement password reset functionality
-- [ ] Add user profile management
-- [ ] Create additional features as requested
+## Next Steps (Priority Order)
+1. Create new Supabase project in US East/EU West
+2. Update Vercel environment variables
+3. Run `npx prisma migrate deploy` on new database
+4. Trigger new deployment on Vercel
+5. Test registration/login on live site
+6. Update NEXTAUTH_URL to actual deployment URL
 
-## GitHub Integration
-**Status**: ✅ CONNECTED to GitHub repository  
-**Repository**: https://github.com/butzyisorena/Notes.git  
-**Last Updated**: 2026-03-30  
-**Connection established**: Successfully pushed all changes to GitHub  
-**Authentication**: Using Personal Access Token (repo scope)  
-**Next**: Vercel deployment
-
-## Database Setup
-**Development**: SQLite (file:./dev.db)  
-**Production**: Supabase PostgreSQL (Tokyo region)  
-**Configuration**:  
-- Prisma schema supports both SQLite (dev) and PostgreSQL (prod)
-- Separate `schema.postgres.prisma` for production migrations
-- Environment variables configured for both environments
-**Note**: IPv6 connectivity issue with Tokyo region - local development uses SQLite
-
-## Vercel Deployment
-**Status**: ✅ DEPLOYED  
-**URL**: https://mg-kojelauta-8b6o1wfrl-butzy0013-5201s-projects.vercel.app  
-**Preview URL**: https://mg-kojelauta-git-e8e9fba90d6801-db600a-butzy0013-5201s-projects.vercel.app  
-**Deployment ID**: dpl_9tdxSdAbV67vKNZiMejpvpwxcdMw  
-**Environment**: Preview (needs production domain assignment)  
-**Next steps**:  
-1. Assign production domain (mg-kojelauta.vercel.app)  
-2. Update NEXTAUTH_URL environment variable  
-3. Run database migrations on Supabase  
-4. Create admin user
-
-## Important Notes
-1. **Security**: NEXTAUTH_SECRET should be changed in production
-2. **Database**: Supabase PostgreSQL (Tokyo) for production, SQLite for development
-3. **Password**: Current validation requires 12+ characters with complexity
-4. **Session**: JWT-based sessions with 30-day expiration (default)
-5. **Deployment**: ✅ DEPLOYED to Vercel - https://mg-kojelauta-8b6o1wfrl-butzy0013-5201s-projects.vercel.app
-6. **Pending**: Database migrations, NEXTAUTH_URL update, production domain assignment
-
-## To Resume Work
-Use this prompt to continue development:
-```
-I'm continuing work on the secure web app at /home/butzy/secure-web-app.
-The app has Next.js 16 with authentication (NextAuth.js + credentials), 
-Prisma with SQLite, and a dashboard. Current priorities are:
-1. [Your next priority]
-2. [Additional tasks]
-Please help me continue with these tasks.
-```
-
-<!-- Deployment trigger -->
+## How to Continue Tomorrow
+1. Open this project: `cd /home/butzy/secure-web-app`
+2. Run: `npm run dev` to test locally
+3. Check Vercel deployment status
+4. Create new Supabase project with IPv4 support
+5. Update environment variables and redeploy
