@@ -50,7 +50,8 @@ NEXTAUTH_SECRET="development-secret-change-in-production-1234567890"
 
 ## Next Steps (Pending)
 - [x] Connect GitHub repository for source control ✅ COMPLETED
-- [ ] Set up PostgreSQL for production (Vercel Postgres)
+- [x] Set up PostgreSQL for production (Supabase) ✅ CONFIGURED
+- [ ] Deploy to Vercel
 - [ ] Add email verification for new accounts
 - [ ] Implement password reset functionality
 - [ ] Add user profile management
@@ -64,6 +65,15 @@ NEXTAUTH_SECRET="development-secret-change-in-production-1234567890"
 **Authentication**: Using Personal Access Token (repo scope)  
 **Next**: Vercel deployment
 
+## Database Setup
+**Development**: SQLite (file:./dev.db)  
+**Production**: Supabase PostgreSQL (Tokyo region)  
+**Configuration**:  
+- Prisma schema supports both SQLite (dev) and PostgreSQL (prod)
+- Separate `schema.postgres.prisma` for production migrations
+- Environment variables configured for both environments
+**Note**: IPv6 connectivity issue with Tokyo region - local development uses SQLite
+
 ## Vercel Deployment
 **Status**: Configuration ready  
 **To deploy**:
@@ -73,9 +83,10 @@ NEXTAUTH_SECRET="development-secret-change-in-production-1234567890"
 
 ## Important Notes
 1. **Security**: NEXTAUTH_SECRET should be changed in production
-2. **Database**: Switch to PostgreSQL for production (Vercel Postgres recommended)
+2. **Database**: Supabase PostgreSQL (Tokyo) for production, SQLite for development
 3. **Password**: Current validation requires 12+ characters with complexity
 4. **Session**: JWT-based sessions with 30-day expiration (default)
+5. **Deployment**: Need to connect GitHub to Vercel and set environment variables
 
 ## To Resume Work
 Use this prompt to continue development:
